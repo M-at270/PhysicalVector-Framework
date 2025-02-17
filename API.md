@@ -87,7 +87,7 @@ If needed to pertain original magnitude, divide the ZVector, RightVector and UpV
 
 ### PhysicalVector:update()
 > [!NOTE]
-> To achieve a constant updating cycle execute `PhysicalVector:update()` in a `RunService:RenderStepped` event. <br>
+> To achieve a constant updating cycle execute `PhysicalVector:update()` in a `RunService.RenderStepped` event. <br>
 
 Updates the vector's position to start at `self.adornee.Position` and end at `self.Point2`.
 
