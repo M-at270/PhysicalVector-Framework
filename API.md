@@ -20,10 +20,15 @@ Module.Initialize(
   {["ObjectColor"] = Color3.new(0, 0, 0);
    ["OutlineTransparency"] = 1
 }
+)
 ```
 Applicable settings: <br>
-`["ObjectColor"] = [Color3]` <br>
-`["OutlineTransparency"] = [number]`
+`["ObjectColor"] = [Color3]` (defaults to `Color3.fromRGB(152, 152, 152)`) <br>
+`["OutlineTransparency"] = [number]` (defaults to 1) <br>
+`["FillTransparency"] = [number]` (defaults to 0) <br>
+`["OutlineColor"] = [Color3]` (defaults to `Color3.fromRGB(255, 255, 255)`) <br>
+`["ArrowTipMesh"] = [string]` <br>
+`["CubeShape"] = [boolean]` (defaults to `true`) <br>
 
 ## [PhysicalVector]
 ### PhysicalVector.Point2
