@@ -99,10 +99,10 @@ export type PhysicalVector = {
 	Point2: Vector3;
 	model: Model;          								-- Model of the vector
 	adornee: Instance;     								-- Model of the physical object
-	Color: Color3;										-- Color of the highlight
-	new: (adornee, Point2) -> PhysicalVector;   		-- Constructor
-	fromMatrix: (adornee, matrix) -> PhysicalVector;	-- Constructor from matrix (constant rotation)
-	update: (self: PhysicalVector) -> ();				-- Binded to renderstep
+	Color: Color3;									-- Color of the highlight
+	new: (adornee, Point2) -> PhysicalVector;   					-- Constructor
+	fromMatrix: (adornee, matrix) -> PhysicalVector;				-- Constructor from matrix (constant rotation)
+	update: (self: PhysicalVector) -> ();						-- To be binded to renderstep
 	Destroy: (self) -> {}								-- Destroys the vector entirely
 }
 
