@@ -16,10 +16,12 @@ Creates the vector model in `game.ReplicatedStorage` if ran in a `LocalScript`, 
 Applies `SETTINGS`. <br>
 *Example of SETTINGS format:* <br>
 ```lua
-Module.Initialize(
-  {["ObjectColor"] = Color3.new(0, 0, 0);
-   ["OutlineTransparency"] = 1
-}
+VectorModule.Initialize(
+	{["OutlineTransparency"] = 0.5;
+		["ObjectColor"] = Color3.fromRGB(0, 0, 0);
+		["OutlineColor"] = Color3.fromRGB(255, 0, 0);
+		["FillTransparency"] = 0.5;
+	}
 )
 ```
 Applicable settings: <br>
@@ -29,6 +31,7 @@ Applicable settings: <br>
 `["OutlineColor"] = [Color3]` (defaults to `Color3.fromRGB(255, 255, 255)`) <br>
 `["ArrowTipMesh"] = [string]` <br>
 `["CubeShape"] = [boolean]` (defaults to `true`) <br>
+`["CastShadow"] = [boolean]` (defaults to `true`)
 
 ## [PhysicalVector]
 ### PhysicalVector.Point2
