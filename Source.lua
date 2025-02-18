@@ -1,4 +1,6 @@
 -- By: M_at270
+-- Visit API.md for explanations on every type & property & method
+-- Visit Examples.md for a tutorial and code that uses the module.
 
 local module = {}
 
