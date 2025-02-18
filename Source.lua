@@ -1,6 +1,7 @@
 -- By: M_at270
 -- Visit API.md for explanations on every type & property & method
 -- Visit Examples.md for a tutorial and code that uses the module.
+-- Visit README.md for more credit, contacts and overview
 
 local module = {}
 
@@ -24,23 +25,23 @@ module.Initialize = function(
 	local newMeshPart = Instance.new("Part")
 	local mesh = Instance.new("SpecialMesh")
 	mesh.Parent = newMeshPart
-	newMeshPart.Name = "MeshPart"
+	newMeshPart.Name = "MeshPart" -- names are used in methods
 	local newPart = Instance.new("Part")
 	local highlight = Instance.new("Highlight")
 	local origin = Instance.new("Part")
 	local billboardGui = Instance.new("BillboardGui")
 	local textLabel = Instance.new('TextLabel')
 	
-	origin.Name = "Origin"
+	origin.Name = "Origin" -- names are used in methods
 	
 	for _, i in ipairs({newPart, newMeshPart, origin, highlight}) do
 		i.Parent = newModel
 		
-		if not i:IsA("Part") then continue end -- no nesting
+		if not i:IsA("Part") then continue end -- change properties of every part (no nesting)
 		i.Anchored = true
 		i.BottomSurface = Enum.SurfaceType.Smooth
 		i.CanCollide = false
-		i.CastShadow = SETTINGS["CastShadow"] or true
+		i.CastShadow = SETTINGS["CastShadow"] or true -- changes to settings['castshadow'] if it exists, else true
 		
 		if not SETTINGS["ObjectColor"] then continue end
 		i.Color = SETTINGS["ObjectColor"]
@@ -55,7 +56,7 @@ module.Initialize = function(
 	billboardGui.Enabled = false
 	billboardGui.Size = UDim2.new(0, 400, 0, 50) --change if needed
 	
-	newPart.Size = VECT(5, 0.5, 0.5)
+	newPart.Size = VECT(5, 0.5, 0.5) -- specific properties as from the previous vector model
 	newPart.CFrame = CF(VECT(17.75, 6, -7.75)) * CFrame.fromEulerAnglesXYZ(RAD(0), RAD(45), RAD(90)) -- RAD(0) or 0
 	
 	newMeshPart.Size = VECT(2.5, 2.5, 2.5)
@@ -91,7 +92,7 @@ module.Initialize = function(
 	-- finish
 	newModel.Name = "Vector"
 	newModel.PrimaryPart = origin
-	newModel.Parent = if game.Players.LocalPlayer then game.ReplicatedStorage else game.ServerStorage -- dependant whether it's serverside
+	newModel.Parent = if game.Players.LocalPlayer then game.ReplicatedStorage else game.ServerStorage -- dependant whether it's serverside (if localplayer exists then RS, else SS)
 end
 
 -- // MAIN TYPE
@@ -108,7 +109,7 @@ export type PhysicalVector = {
 	Destroy: (self) -> {}								-- Destroys the vector entirely
 }
 
-local Vector: PhysicalVector = {} :: PhysicalVector
+local Vector: PhysicalVector = {} :: PhysicalVector -- use a new vector object with the type of physicalvector
 Vector.__index = Vector
 
 -- // CONSTRUCTORS
@@ -197,7 +198,7 @@ function Vector:update()
 	self.model.MeshPart.CFrame *= CF(0, magnitude, 0)
 end
 
-function Vector:Destroy()	
+function Vector:Destroy()	-- setting the parent & metatable of both to nil will destroy both
 	self.model.Parent = nil
 	
 	return setmetatable(self, nil)
@@ -247,10 +248,10 @@ export type Animations = {
 	MovePoints: (vect: Vector, EasingStyle: Enum.EasingStyle, RunTime: number, Point4: Vector3) -> ()
 }
 
-local Animations: Animations = {} :: Animations
+local Animations: Animations = {} :: Animations -- needs a new object with type Animations
 Animations.__index = Animations
 
-Vector.Animations = Animations
+Vector.Animations = Animations -- parent to Vector
 
 -- // ANIMATIONS
 
@@ -261,19 +262,19 @@ function Animations.Grow(vect: Vector, EasingStyle: Enum.EasingStyle, RunTime: n
 	local CFr = vect.model.PrimaryPart.CFrame
 	local MeshCFr = vect.model.MeshPart.CFrame
 	
-	vect.model.MeshPart.CFrame = CFr * CF(0, 0, 0)
+	vect.model.MeshPart.CFrame = CFr * CF(0, 0, 0) -- empty cframe to change if needed offset
 	vect.model.Part.CFrame = CFr
 	vect.model.Part.Size = VECT(0.1, vect.model.Part.Size.Y, vect.model.Part.Size.Z)
 	vect.model.MeshPart.Rotation = vect.model.Part.Rotation - VECT(0, 0, 90)
 		
 	TWS:Create(
 		vect.model.MeshPart, TweenInfo.new(RunTime, EasingStyle), {CFrame = MeshCFr}
-	):Play()
+	):Play() -- tween MeshPart's cframe to MeshCFr
 	TWS:Create(
 		vect.model.Part, TweenInfo.new(RunTime, EasingStyle), {Size = VECT(magnitude, vect.model.Part.Size.Y, vect.model.Part.Size.Z),
 			CFrame = CFr * CF(magnitude/2, 0, 0)
 		}
-	):Play()
+	):Play() -- tween vect.model.Part's size's X coordinate (length) and CFrame forward half of the length
 	
 	task.wait(RunTime)
 end
@@ -284,7 +285,7 @@ function Animations.FadeIn(vect: Vector, EasingStyle: Enum.EasingStyle, RunTime:
 	
 	for _, i: Instance in ipairs(self.model:GetChildren()) do
 		if i:IsA("Part") then
-			i.Color = Color3.new(152, 152, 152)
+			i.Color = SETTINGS["ObjectColor"] or Color3.new(152, 152, 152) --reset part color to suppress glow while fading (highlight declines)
 		end
 	end
 	
@@ -304,7 +305,7 @@ function Animations.FadeOut(vect: Vector, EasingStyle: Enum.EasingStyle, RunTime
 	
 	for _, i: Instance in ipairs(self.model:GetChildren()) do
 		if i:IsA("Part") or i:IsA("MeshPart") then
-			i.Color = Color3.new(152, 152, 152)
+			i.Color = SETTINGS["ObjectColor"] or Color3.new(152, 152, 152) --reset part color to suppress glow while fading (highlight declines)
 		end
 	end
 
@@ -336,7 +337,7 @@ function Animations.TweenHoverTextProperties(vect: Vector, EasingStyle: Enum.Eas
 	
 	TWS:Create(
 		HoverText, TweenInfo.new(RunTime, EasingStyle), targetProperties
-	):Play()
+	):Play() -- simply tween the properties (however can run into an exception if the property is boolean, int, str or object)
 	
 	task.wait(RunTime)
 end
@@ -372,7 +373,7 @@ function Animations.MovePoints(vect: Vector, EasingStyle: Enum.EasingStyle, RunT
 	task.wait(RunTime)
 end
 
--- save in module via creating a metatable of the created Vector table and PhysicalVector
+-- save in module via creating a metatable of the created Vector table as PhysicalVector
 
 module.PhysicalVector = setmetatable(Vector, {} :: PhysicalVector)
 
