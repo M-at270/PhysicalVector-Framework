@@ -18,8 +18,9 @@ local SQRT = math.sqrt
 -- // Initialization
 
 module.Initialize = function(
-	SETTINGS: {[string]: any} -- the type of the settings is a table {string: any}
-)
+	SETTINGS: {[string]: any} 
+)	--the type of the settings is a table {string: any}
+	
 	-- create vector model
 	local newModel = Instance.new("Model")
 	local newMeshPart = Instance.new("Part")
