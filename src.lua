@@ -23,10 +23,10 @@ local SQRT = math.sqrt
 -- // Initialization
 
 module.Initialize = function(
-	SETTINGS: {[string]: any} 
+	Settings: {[string]: any} 
 )	--the type of the settings is a table {string: any}
 	
-	SETTINGS = SETTINGS
+	SETTINGS = Settings
 	
 	-- creates new instances that constitute to the vector model
 	local newModel = Instance.new("Model") --model
@@ -296,8 +296,8 @@ function Animations.FadeIn(vect: Vector, EasingStyle: Enum.EasingStyle, RunTime:
 
 	for _, i: Instance in ipairs(self.model:GetChildren()) do -- iterates over all Parts of the vector model to change their color
 		if i:IsA("Part") then
-			i.Color = SETTINGS["ObjectColor"] or Color3.new(152, 152, 152) --resets every part color to suppress glow while fading (highlight declines)
-		end
+			i.Color = if SETTINGS["ObjectColor"] then SETTINGS["ObjectColor"] else Color3.new(152, 152, 152) --resets every part color to suppress glow while fading (highlight declines)
+		end -- if the color actually exists in the SETTINGS list, then choose it, else a new color of rgb(152, 152, 152)
 	end
 
 	TWS:Create(
@@ -316,8 +316,8 @@ function Animations.FadeOut(vect: Vector, EasingStyle: Enum.EasingStyle, RunTime
 
 	for _, i: Instance in ipairs(self.model:GetChildren()) do -- iterates over all Parts of the vector model to change their color
 		if i:IsA("Part") or i:IsA("MeshPart") then
-			i.Color = SETTINGS["ObjectColor"] or Color3.new(152, 152, 152) --resets every part color to suppress glow while fading (highlight declines)
-		end
+			i.Color = if SETTINGS["ObjectColor"] then SETTINGS["ObjectColor"] else Color3.new(152, 152, 152) --resets every part color to suppress glow while fading (highlight declines)
+		end -- if the color actually exists in the SETTINGS list, then choose it, else a new color of rgb(152, 152, 152)
 	end
 
 	TWS:Create(
