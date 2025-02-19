@@ -39,7 +39,7 @@ For a tutorial and examples visit `Examples.md`!
 
 PhysicalVector's API is documented in `API.md`!
 
-PhysicalVector's source code is in `Source` file!
+PhysicalVector's source code is in `src.lua`!
 
 ## Contact
 
